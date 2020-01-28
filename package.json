@@ -1,0 +1,30 @@
+{
+  "name": "comments",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "react start": "webpack-dev-server --mode development --open --hot",
+    "server start": "node server.js",
+    "build": "webpack --mode production",
+    "seed": "database/seed.js"
+  },
+  "author": "David Orr",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "lodash": "^4.17.15",
+    "mongodb": "^3.5.2",
+    "mongoose": "^5.8.10",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  }
+}
