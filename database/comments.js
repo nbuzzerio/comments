@@ -4,7 +4,7 @@ mongoose.Promise = global.Promise;
 
 const commentSchema = new mongoose.Schema({
   song_id: Number,
-  user_id: String,
+  user_id: Number,
   message: String,
   audio_position: Number,
   // also using built-in createdAt data
