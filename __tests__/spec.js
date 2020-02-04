@@ -25,4 +25,4 @@ it ('Successfully retrieves comments from a populated database', async done => {
 });
 
 
-// more tests to come as app is refined
+// more tests to come as app is refined; integrating supertest for API testing
