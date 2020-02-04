@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "test": "jest",
     "reactstart": "webpack-dev-server --mode development --open --hot",
     "serverstart": "node server/server.js",
     "build": "webpack --mode production",
@@ -32,6 +33,7 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^25.1.0",
     "lodash": "^4.17.15",
+    "supertest": "^4.0.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
