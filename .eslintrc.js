@@ -5,6 +5,8 @@ module.exports = {
         "node": true
     },
     "extends": "eslint:recommended",
+    "extends": "airbnb-base",
+
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -20,5 +22,6 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "linebreak-style": 0
     }
 };

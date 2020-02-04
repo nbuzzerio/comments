@@ -4,15 +4,17 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "react start": "webpack-dev-server --mode development --open --hot",
-    "server start": "node server.js",
+    "reactstart": "webpack-dev-server --mode development --open --hot",
+    "serverstart": "node server/server.js",
     "build": "webpack --mode production",
-    "seed": "database/seed.js"
+    "seed": "node database/seed.js"
   },
   "author": "David Orr",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "mongodb": "^3.5.2",
     "mongoose": "^5.8.10",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
@@ -28,9 +30,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "faker": "^4.1.0",
+    "jest": "^25.1.0",
     "lodash": "^4.17.15",
-    "mongodb": "^3.5.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
