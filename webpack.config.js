@@ -1,18 +1,18 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const source = path.join(__dirname, '/client/src');
+const source = path.join(__dirname, '/client/main.js');
 const destination = path.join(__dirname, '/client/dist');
 
 module.exports = {
-  entry: './main.js',
+  mode: 'development',
+  entry: source,
   output: {
-    path: path.join(__dirname, '/bundle'),
+    path: destination,
     filename: 'index_bundle.js'
   },
   devServer: {
     inline: true,
-    port: 8001
+    port: 8001,
   },
   module: {
     rules: [
@@ -21,14 +21,9 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react']
-        }
-      }
+          presets: ['@babel/preset-react']
+        },
+      },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './index.html'
-    })
-  ]
 }

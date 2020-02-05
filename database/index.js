@@ -8,9 +8,9 @@ const commentSchema = mongoose.Schema({
   comment_id: Number,
   song_id: Number,
   user_id: Number,
+  user_icon: String,
   message: String,
   audio_position: Number,
-  // also using built-in createdAt data
 
 });
 

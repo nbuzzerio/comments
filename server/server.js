@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')))
 app.use(express.urlencoded());
 
 app.get('/comment/:song_id', (req, res) => {
-  Comments.find({ song_id: req.params.song_i })
+  Comments.find({ song_id: req.params.song_id })
     .then((comments) => {
       res.send(comments);
       console.log('These are the comments:', comments)
