@@ -9,8 +9,7 @@
     "serverstart": "node server/server.js",
     "build": "webpack --mode production",
     "seed": "node database/seed.js",
-    "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production"
+    "start": "webpack-dev-server --mode development --open --hot"
   },
   "author": "David Orr",
   "license": "ISC",
@@ -23,9 +22,11 @@
     "react-dom": "^16.12.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
-    "babel-preset-env": "^1.7.0",
     "ejs": "^3.0.1",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -33,11 +34,12 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
     "jest": "^25.1.0",
     "lodash": "^4.17.15",
     "supertest": "^4.0.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.1"
+    "webpack-dev-server": "^3.10.2"
   }
 }
