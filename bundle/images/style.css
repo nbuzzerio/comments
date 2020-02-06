@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang = "en">
-   <head>
-   <style>
-     #comments {
+#comments {
   width: 669px;
   /* remove this padding upon page implmentation */
   padding:10px;
@@ -98,15 +94,3 @@
   margin: 0px;
 }
 
-
-  </style>
-
-    <script src="https://kit.fontawesome.com/773b2ac6da.js" crossorigin="anonymous"></script>
-      <meta charset = "UTF-8">
-      <title>React App</title>
-   </head>
-   <body>
-      <div id = "app"></div>
-      <script src = 'index_bundle.js'></script>
-   </body>
-</html>
