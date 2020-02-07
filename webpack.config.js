@@ -2,10 +2,10 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-   entry: './main.js',
+   entry: './client/src/index.js',
    output: {
-      path: path.join(__dirname, '/bundle'),
-      filename: 'index_bundle.js',
+      path: path.join(__dirname, 'client/dist'),
+      filename: 'index_bundle.js'
    },
    module: {
       rules: [
@@ -19,4 +19,4 @@ module.exports = {
          }
       ]
    },
-};
+}

@@ -16,6 +16,10 @@ for (let i = 0; i < 400; i += 1) {
 
   const user_icon = faker.image.avatar();
 
+  const user_name = faker.internet.userName();
+
+  const posted_at = faker.date.recent();
+
   const randomWordCount = Math.floor(Math.random() * 30);
   const message = faker.random.words(randomWordCount);
 
@@ -27,9 +31,11 @@ for (let i = 0; i < 400; i += 1) {
     comment_id: i,
     song_id,
     user_id,
+    user_name,
     user_icon,
     message,
     audio_position,
+    posted_at,
   };
   comments.push(newComment);
 }
