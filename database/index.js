@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 const mongoUri = 'mongodb://localhost:27017/comments';
 
-const connection = mongoose.connect(mongoUri);
-
+const connection = mongoose.connect(mongoUri, {
+  useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false,
+});
 const commentSchema = mongoose.Schema({
   comment_id: Number,
   song_id: Number,
