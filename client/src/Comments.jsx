@@ -1,17 +1,8 @@
 // eslint-disable-next-line max-classes-per-file
 import React from 'react';
-// import axios from 'axios';
 import moment from 'moment';
+import axios from 'axios';
 
-const comments = [{
-  _id: '5e3d0371163ea548f848eab1', comment_id: 34, song_id: 21, user_id: 81, user_name: 'Claudine_Leuschke', user_icon: 'https://s3.amazonaws.com/uifaces/faces/twitter/webtanya/128.jpg', message: 'sensor project hack Customer Illinois neutral digital Barbados Dollar architectures Concrete Berkshire transmit Idaho Dalasi Customizable cross-platform South Dakota SCSI', audio_position: 105, posted_at: 1581024234969, __v: 0,
-}, {
-  _id: '5e3d0371163ea548f848eb06', comment_id: 119, song_id: 21, user_id: 71, user_name: 'Florine94', user_icon: 'https://s3.amazonaws.com/uifaces/faces/twitter/herkulano/128.jpg', message: 'platforms Cross-platform optimizing Honduras input Denar black experiences Awesome Rubber Bacon payment Optional Bedfordshire Money Market Account Frozen plum navigating Point Specialist Savings Account EXE PNG Rial Omani hack Gorgeous Operations Mozambique', audio_position: 19, posted_at: 1581048919038, __v: 0,
-}, {
-  _id: '5e3d0372163ea548f848ebd8', comment_id: 329, song_id: 21, user_id: 46, user_name: 'Favian_Ondricka', user_icon: 'https://s3.amazonaws.com/uifaces/faces/twitter/lingeswaran/128.jpg', message: 'Practical Plastic Chair auxiliary virtual Kids Chair FTP Rand Tools Granite Slovakia (Slovak Republic) Rubber bypass cultivate', audio_position: 98, posted_at: 1580976585257, __v: 0,
-}, {
-  _id: '5e3d0372163ea548f848ebee', comment_id: 351, song_id: 21, user_id: 52, user_name: 'Kyleigh97', user_icon: 'https://s3.amazonaws.com/uifaces/faces/twitter/dnirmal/128.jpg', message: 'Fantastic fault-tolerant contextually-based Clothing deposit portals', audio_position: 31, posted_at: 1581047676062, __v: 0,
-}];
 
 class CommentList extends React.Component {
   render() {
@@ -61,15 +52,32 @@ class CommentModule extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      comments,
-      commentsLength: comments.length,
+      comments : [{
+        _id: '5e3d0371163ea548f848eab1', comment_id: 34, song_id: 21, user_id: 81, user_name: 'Claudine_Leuschke', user_icon: 'https://s3.amazonaws.com/uifaces/faces/twitter/webtanya/128.jpg', message: 'sensor project hack Customer Illinois neutral digital Barbados Dollar architectures Concrete Berkshire transmit Idaho Dalasi Customizable cross-platform South Dakota SCSI', audio_position: 105, posted_at: 1581024234969, __v: 0}]
     };
   }
+
+  componentDidMount() {
+
+      axios.get('http://localhost:8080/comment/27')
+        .then((response) => {
+          console.log('successfully recieved comments for song' , response);
+          this.setState({
+            comments : response.data,
+          });
+        })
+        .catch((error) => {
+          console.log('Something went wrong when retrieving comments' , error);
+        });
+
+  }
+
+
 
   render() {
     return (
       <div className='comment-box'>
-        <CommentList comments={this.state.comments} commentsLength={this.state.commentsLength} />
+        <CommentList comments={this.state.comments} commentsLength={this.state.comments.length} />
       </div>
     );
   }
