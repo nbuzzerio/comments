@@ -1,12 +1,15 @@
+
 const path = require('path');
 const express = require('express');
 const Comments = require('../database/index.js');
 const cors = require('cors');
-// const comment = require('../database/comments.js');
+const dotenv = require('dotenv').config({
+  path: path.join(__dirname, '../.env')
+});
+
 
 
 const app = express();
-const port = 8080;
 
 app.use(express.static(path.join(__dirname, '../client/dist')))
 app.use(express.urlencoded({ extended: true }));
@@ -23,6 +26,6 @@ app.get('/comment/:song_id', (req, res) => {
     });
 });
 
-app.listen(port, () => {
-  console.log(`Server running  on port ${port}...`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server running  on port ${process.env.PORT}...`);
 });
