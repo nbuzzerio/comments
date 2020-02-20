@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
+const path = require('path');
+const dotenv = require('dotenv').config({
+  path: path.join(__dirname, '../.env')
+});
+const mongoUri = '';
 
-const mongoUri = 'mongodb://localhost:27017/comments';
-
-const connection = mongoose.connect(mongoUri);
-
+const connection = mongoose.connect(process.env.MONGOURI, {
+  useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false,
+});
 const commentSchema = mongoose.Schema({
   comment_id: Number,
   song_id: Number,
