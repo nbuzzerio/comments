@@ -2,6 +2,13 @@
 import React from 'react';
 import moment from 'moment';
 import axios from 'axios';
+const localUrl = 'http://localhost:8080';
+const prodUrl = 'http://ec2-34-220-99-82.us-west-2.compute.amazonaws.com:8080/';
+const API_URL = (window.location.host === 'localhost:8080') ? localUrl : prodUrl;
+console.log('this is localUrl: ', localUrl);
+console.log('this is prodUrl: ', prodUrl);
+console.log('API_URL: ', API_URL);
+console.log('...cheese');
 
 
 class CommentList extends React.Component {
@@ -52,14 +59,15 @@ class CommentModule extends React.Component {
   constructor(props) {
     super();
     this.state = {
+      songId: (window.location.href.split("/").pop() || 1),
       comments : [{
         _id: '5e3d0371163ea548f848eab1', comment_id: 34, song_id: 21, user_id: 81, user_name: 'Claudine_Leuschke', user_icon: 'https://s3.amazonaws.com/uifaces/faces/twitter/webtanya/128.jpg', message: 'sensor project hack Customer Illinois neutral digital Barbados Dollar architectures Concrete Berkshire transmit Idaho Dalasi Customizable cross-platform South Dakota SCSI', audio_position: 105, posted_at: 1581024234969, __v: 0}]
     };
   }
 
   componentDidMount() {
-
-      axios.get('http://localhost:8080/comment/27')
+      console.log(this.state.songId);
+      axios.get(API_URL + 'comment/' + this.state.songId)
         .then((response) => {
           console.log('successfully recieved comments for song' , response);
           this.setState({
