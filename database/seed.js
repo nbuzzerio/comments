@@ -6,11 +6,11 @@ const comments = [];
 
 for (let i = 0; i < 400; i += 1) {
   const song_id = faker.random.number({
-    min: 10,
+    min: 1,
     max: 100,
   });
   const user_id = faker.random.number({
-    min: 10,
+    min: 1,
     max: 100,
   });
 
