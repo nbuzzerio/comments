@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "reactstart": "webpack-dev-server --mode development --open --hot",
-    "serverstart": "node server/server.js",
+    "serverstart": "nodemon server/server.js",
     "build": "webpack --mode production",
     "seed": "node database/seed.js",
     "start": "webpack --watch"
@@ -21,6 +21,7 @@
     "moment": "^2.24.0",
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.10",
+    "nodemon": "^2.0.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
