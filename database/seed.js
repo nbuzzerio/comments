@@ -25,7 +25,7 @@ for (let i = 0; i < 400; i += 1) {
 
   const audio_position = faker.random.number({
     min: 1,
-    max: 120,
+    max: 80,
   });
   const newComment = {
     comment_id: i,
