@@ -20,7 +20,7 @@ var convertTimestamp = function(timestamp) {
       return minutes + ':' + seconds;
     }
   }
-  return timestamp;
+  return '0:' + timestamp;
 }
 
 class CommentList extends React.Component {
