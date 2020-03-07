@@ -10,6 +10,18 @@ console.log('this is prodUrl: ', prodUrl);
 console.log('API_URL: ', API_URL);
 console.log('...cheese');
 
+var convertTimestamp = function(timestamp) {
+  if (timestamp > 60) {
+    var minutes = Math.floor(timestamp / 60);
+    var seconds = timestamp - (minutes * 60);
+    if (seconds < 9) {
+      return minutes + ':0' + seconds;
+    } else {
+      return minutes + ':' + seconds;
+    }
+  }
+  return timestamp;
+}
 
 class CommentList extends React.Component {
   render() {
@@ -43,7 +55,7 @@ class Comment extends React.Component {
           <div className="comment_content">
             <span className="comment_username">{this.props.author}</span>
             <span className="comment_at"> at </span>
-            <span className="comment_timestamp">{this.props.audio_position}</span>
+            <span className="comment_timestamp">{convertTimestamp(this.props.audio_position)}</span>
             <span className="comment_postedAt">{moment(this.props.posted_at).fromNow()}</span>
             <div className="comment_text_container">
               <p className="comment_text">{this.props.text}</p>
