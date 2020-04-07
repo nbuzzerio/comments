@@ -11,7 +11,7 @@
     "seed": "node database/seed.js",
     "start": "webpack --watch"
   },
-  "author": "David Orr",
+  "author": "David Orr, Nicholas Buzzerio",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
