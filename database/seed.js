@@ -1,64 +1,91 @@
 /* eslint-disable camelcase */
-const faker = require('faker');
 // const Comments = require('./index');
 
-const comments = [];
-const messages = [];
+const faker = require('faker');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const csvWriter = createCsvWriter({
+  path: 'comments.csv',
+  header: [
+    {id: 'song_id', title: 'Song_Id'},
+    {id: 'user_id', title: 'User_Id'},
+    {id: 'user_icon', title: 'User_Icon'},
+    {id: 'user_name', title: 'User_Name'},
+    {id: 'message', title: 'Message'},
+    {id: 'audio_position', title: 'Audio_Position'},
+    {id: 'user_icon', title: 'User_Icon'},
+    {id: 'posted_at', title: 'Posted_At'},
+  ]
+});
 
-console.time('1000 msgs: ')
-for (var i = 0; i < 1000; i++) {
-  const randomWordCount = Math.floor(Math.random() * 30);
-  const message = faker.random.words(randomWordCount);
-  messages.push(message);
-}
-console.timeEnd('1000 msgs: ');
+async function asyncWriter() {
 
-console.time('40M records: ')
-for (var j = 0; j < 200; j++) {
-
-  for (let i = 40000 * j; i < 40000 * j + 40000; i++) { //scaled from 400 to 10M
-
-    const song_id = faker.random.number({
-      min: 1,
-      max: 10000000,
-    });
-
-    const user_id = faker.random.number({
-      min: 1,
-      max: 10000000,
-    });
-
-    const user_icon = faker.image.avatar();
-    
-    const user_name = faker.internet.userName();
-
-    const posted_at = faker.date.recent();
-
-    const audio_position = faker.random.number({
-      min: 1,
-      max: 80,
-    });
-
-    //picks a random message from the array
-    message = messages[Math.floor(Math.random() * 1000)];
-    
-    const newComment = {
-      comment_id: i,
-      song_id,
-      user_id,
-      user_name,
-      user_icon,
-      message,
-      audio_position,
-      posted_at,
-    };
-
-    comments.push(newComment);
-
+  var comments = [];
+  const messages = [];
+  
+  console.time('1000 msgs: ')
+  for (var i = 0; i < 1000; i++) {
+    const randomWordCount = Math.floor(Math.random() * 30);
+    const message = faker.random.words(randomWordCount);
+    messages.push(message);
   }
+  console.timeEnd('1000 msgs: ');
 
+  for (var j = 0; j < 40; j++) {
+    console.time(`${j}M records: `)
+    for (var i = 1000000 * j; i < 1000000 * j + 1000000; i++) { //scaled from 400 to 10M
+    // for (var i = 0; i < 40000; i++) {
+      const song_id = faker.random.number({
+        min: 1,
+        max: 10000000,
+      });
+
+      const user_id = faker.random.number({
+        min: 1,
+        max: 10000000,
+      });
+
+      const user_icon = faker.image.avatar();
+      
+      const user_name = faker.internet.userName();
+
+      const posted_at = faker.date.recent();
+
+      const audio_position = faker.random.number({
+        min: 1,
+        max: 80,
+      });
+
+      //picks a random message from the array
+      message = messages[Math.floor(Math.random() * 1000)];
+      
+      const newComment = {
+        comment_id: i,
+        song_id,
+        user_id,
+        user_name,
+        user_icon,
+        message,
+        audio_position,
+        posted_at,
+      };
+
+      comments.push(newComment);
+
+    }
+    console.log('async test: ' + j)
+    await csvWriter
+    .writeRecords(comments)
+    .then(() => console.log(`CSV file has added ${j+1}M records`))
+    .then(() => {comments = []})
+    .then(() => {
+      console.timeEnd(`${j}M records: `)
+    })
+  }
 }
+
+asyncWriter();
 
 console.timeEnd('40M records: ')
+
 // console.log(comments);
 // Comments.insertMany(comments);

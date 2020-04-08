@@ -8,3 +8,4 @@ pids
 *.pid
 logs
 *.log
+*.csv
