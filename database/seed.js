@@ -1,6 +1,3 @@
-/* eslint-disable camelcase */
-// const Comments = require('./index');
-
 const faker = require('faker');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvWriter = createCsvWriter({
@@ -22,16 +19,14 @@ async function asyncWriter() {
   var comments = [];
   const messages = [];
   
-  console.time('1000 msgs: ')
   for (var i = 0; i < 1000; i++) {
     const randomWordCount = Math.floor(Math.random() * 30);
     const message = faker.random.words(randomWordCount);
     messages.push(message);
   }
-  console.timeEnd('1000 msgs: ');
+
 
   for (var j = 0; j < 40; j++) {
-    console.time(`${j}M records: `)
     for (var i = 1000000 * j; i < 1000000 * j + 1000000; i++) { //scaled from 400 to 10M
     // for (var i = 0; i < 40000; i++) {
       const song_id = faker.random.number({
@@ -77,15 +72,8 @@ async function asyncWriter() {
     .writeRecords(comments)
     .then(() => console.log(`CSV file has added ${j+1}M records`))
     .then(() => {comments = []})
-    .then(() => {
-      console.timeEnd(`${j}M records: `)
-    })
   }
 }
 
 asyncWriter();
 
-console.timeEnd('40M records: ')
-
-// console.log(comments);
-// Comments.insertMany(comments);
