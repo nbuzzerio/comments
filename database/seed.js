@@ -1,15 +1,15 @@
 const faker = require('faker');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvWriter = createCsvWriter({
-  path: 'comments.csv',
+  path: './comments.csv',
   header: [
+    {id: 'comment_id', title: 'Comment_Id'},
     {id: 'song_id', title: 'Song_Id'},
     {id: 'user_id', title: 'User_Id'},
     {id: 'user_icon', title: 'User_Icon'},
     {id: 'user_name', title: 'User_Name'},
     {id: 'message', title: 'Message'},
     {id: 'audio_position', title: 'Audio_Position'},
-    {id: 'user_icon', title: 'User_Icon'},
     {id: 'posted_at', title: 'Posted_At'},
   ]
 });
@@ -19,7 +19,7 @@ async function asyncWriter() {
   var comments = [];
   const messages = [];
   
-  for (var i = 0; i < 1000; i++) {
+  for (var i = 0; i < 100000; i++) {
     const randomWordCount = Math.floor(Math.random() * 30);
     const message = faker.random.words(randomWordCount);
     messages.push(message);
@@ -27,8 +27,7 @@ async function asyncWriter() {
 
 
   for (var j = 0; j < 40; j++) {
-    for (var i = 1000000 * j; i < 1000000 * j + 1000000; i++) { //scaled from 400 to 10M
-    // for (var i = 0; i < 40000; i++) {
+    for (var i = 1000000 * j; i < 1000000 * j + 1000000; i++) { //scaled from 400 to 40M
       const song_id = faker.random.number({
         min: 1,
         max: 10000000,
@@ -51,7 +50,7 @@ async function asyncWriter() {
       });
 
       //picks a random message from the array
-      message = messages[Math.floor(Math.random() * 1000)];
+      message = messages[Math.floor(Math.random() * 100000)];
       
       const newComment = {
         comment_id: i,
