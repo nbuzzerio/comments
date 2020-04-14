@@ -8,7 +8,8 @@
     "reactstart": "webpack-dev-server --mode development --open --hot",
     "serverstart": "nodemon server/server.js",
     "build": "webpack --mode production",
-    "seed": "node database/seed.js",
+    "seedComments": "node database/seed.js",
+    "seedSongs": "node database/seedSongs.js",
     "start": "webpack --watch"
   },
   "author": "David Orr, Nicholas Buzzerio",

@@ -14,7 +14,7 @@ const csvWriter = createCsvWriter({
   ]
 });
 
-async function asyncWriter() {
+async function asyncCommentWriter() {
 
   var comments = [];
   const messages = [];
@@ -74,5 +74,5 @@ async function asyncWriter() {
   }
 }
 
-asyncWriter();
+asyncCommentWriter();
 
