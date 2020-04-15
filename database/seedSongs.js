@@ -8,8 +8,6 @@ const csvSongTableWriter = createCsvWriter({
   ]
 });
 
-var test = [];
-
 //creates a csv file containing song_Id's and an array of their associated comments' foreign Keys
 async function asyncSongCommentWriter() {
 

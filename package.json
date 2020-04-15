@@ -10,12 +10,14 @@
     "build": "webpack --mode production",
     "seedComments": "node database/seed.js",
     "seedSongs": "node database/seedSongs.js",
+    "seedSongComments": "node database/seedSong_Comments.js",
     "start": "webpack --watch"
   },
   "author": "David Orr, Nicholas Buzzerio",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "cassandra-driver": "^4.5.1",
     "cors": "^2.8.5",
     "csv-writer": "^1.6.0",
     "dotenv": "^8.2.0",
