@@ -1,13 +1,22 @@
 
 const path = require('path');
 const express = require('express');
-const Comments = require('../database/index.js');
+const db = require('../database/index.js');
+const models = require('../database/models.js');
 const cors = require('cors');
 const dotenv = require('dotenv').config({
   path: path.join(__dirname, '../.env')
 });
 
-const PORT = 3003;
+const PORT = process.env.PORT || 3000;
+
+db.authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch((error) => {
+    console.error('Unable to connect to the database: ', error);
+  })
 
 const app = express();
 
@@ -15,14 +24,29 @@ app.use(express.static(path.join(__dirname, '../client/dist')))
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get('/comment/:song_id', (req, res) => {
-  Comments.find({ song_id: req.params.song_id })
-    .then((comments) => {
+app.get('/comments/:song_id', (req, res) => {
+  var song_id = req.params.song_id;
+  if (song_id === undefined) {
+    song_id = 1;
+  }
+  // models.songs.hasMany(models.comments, {foreignKey: 'song_id'});
+  // models.comments.belongsTo(models.songs, {foreignKey: 'song_id'})
+
+  models.songs.findAll({
+    attributes: ['song_id'],
+    where: {song_id: song_id},
+    include: [{
+      model: models.comments,
+      attributes: ['comment_id', 'song_id', 'user_id', 'user_icon', 'user_name', 'message', 'audio_position', 'posted_at'],
+      required: true,
+     }],
+  }).then((comments) => {
       res.send(comments);
       console.log('These are the comments:', comments)
     })
-    .catch(() => {
-      res.status(404).send('no comments found');
+    .catch((err) => {
+      res.status(404).send(err);
+      console.log("Nope: ", err)
     });
 });
 
@@ -78,5 +102,5 @@ app.get('/deleteComment/:song_id', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running  on port ${PORT}...`);
+  console.log(`Server running  on port ${PORT}.`);
 });

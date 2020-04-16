@@ -26,8 +26,11 @@
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.10",
     "nodemon": "^2.0.2",
+    "pg": "^8.0.2",
+    "pg-hstore": "^2.3.3",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "sequelize": "^5.21.6"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
