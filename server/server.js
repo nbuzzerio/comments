@@ -8,6 +8,8 @@ const dotenv = require('dotenv').config({
   path: path.join(__dirname, '../.env')
 });
 
+require('newrelic');
+
 const PORT = process.env.PORT || 3000;
 
 db.authenticate()
@@ -42,7 +44,6 @@ app.get('/comments/:song_id', (req, res) => {
      }],
   }).then((comments) => {
       res.send(comments);
-      console.log('These are the comments:', comments)
     })
     .catch((err) => {
       res.status(404).send(err);
