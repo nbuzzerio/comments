@@ -1,0 +1,27 @@
+config:
+  target: 'http://localhost:3003'
+  phases:
+    - duration: 60
+      arrivalRate: 100
+  variables:
+    id:
+      - '1'
+      - '10'
+      - '100'
+      - '1000'
+      - '10000'
+      - '100000'
+      - '1000000'
+      - '10000000'
+      - '9'
+      - '90'
+      - '900'
+      - '9000'
+      - '90000'
+      - '900000'
+      - '9000000'
+      - '9999999'
+scenarios:
+  - flow:
+    - get:
+        url: "/comments/{{ id }}"

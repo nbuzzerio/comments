@@ -16,7 +16,6 @@
   "author": "David Orr, Nicholas Buzzerio",
   "license": "ISC",
   "dependencies": {
-    "artillery": "^1.6.0",
     "axios": "^0.19.2",
     "cassandra-driver": "^4.5.1",
     "cors": "^2.8.5",

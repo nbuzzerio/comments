@@ -4,6 +4,7 @@ const express = require('express');
 const db = require('../database/index.js');
 const models = require('../database/models.js');
 const cors = require('cors');
+const sequelize = require('sequelize');
 const dotenv = require('dotenv').config({
   path: path.join(__dirname, '../.env')
 });
@@ -51,23 +52,43 @@ app.get('/comments/:song_id', (req, res) => {
     });
 });
 
-app.get('/createComment/:song_id', (req, res) => {
-  Comments.create({ song_id: req.params.song_id }, {
-    comment_id: 402,
-    song_id: req.params.song_id,
-    user_id: 202,
-    user_name: 'test_name_create',
-    user_icon: 'test_create',
-    message: 'this is a test message for create',
-    audio_position: 2,
-    posted_at: 2,
-  })
-    .then((comments) => {
-      res.send(comments);
-      console.log('These are the comments:', comments)
+app.get('/createComment/:song_id', (req, res) => { //select max(id) from table
+  var max_comment_id;
+  var song_id = req.params.song_id;
+  ///////////////////////////////////////
+  models.comments.findAll({
+    attributes: [sequelize.fn('MAX', sequelize.col('comment_id'))],
+    raw: true
+  }).then((comments) => {
+      max_comment_id = comments[0]['max'] + 1;
+      console.log('Current max comment_id in database is: ', max_comment_id - 1);
+      console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX max_comment_id: ', max_comment_id);
+            
+        /////////////////////////////////////////////////////////////////////////////
+        console.log('types: ', typeof max_comment_id, typeof (Number(song_id)))
+        models.comments.create({
+          comment_id: max_comment_id,
+          song_id: Number(song_id),
+          user_id: 202,
+          user_icon: 'test_icon_create',
+          user_name: 'test_name_create',
+          message: 'this is a test message for create',
+          audio_position: 2,
+          posted_at: 'test time placeholder' 
+        })
+          .then((comments) => {
+            res.send(comments, '\n New max_comment_id is: ', JSON.stringify(max_comment_id));
+            console.log('These are the added comments:', comments)
+            console.log()
+          })
+          .catch(() => {
+            res.status(404).send('Was not able to add a comment to song:' + song_id);
+          });
+        ////////////////////////////////////////////////////////////////////////////
     })
-    .catch(() => {
-      res.status(404).send('no comments found');
+    .catch((err) => {
+      res.status(404).send(err);
+      console.log("Nope: ", err)
     });
 });
 
