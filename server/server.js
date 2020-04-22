@@ -8,6 +8,8 @@ const sequelize = require('sequelize');
 const dotenv = require('dotenv').config({
   path: path.join(__dirname, '../.env')
 });
+const redis = require('./redis.js').redis;
+const redisClient = require('./redis.js').client;
 
 require('newrelic');
 
@@ -27,13 +29,29 @@ app.use(express.static(path.join(__dirname, '../client/dist')))
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get('/comments/:song_id', (req, res) => {
+//redis cache middleware
+function cache(req, res, next) {
+  const { song_id } = req.params;
+  redisClient.get(song_id, (err, comments) => {
+    if (err) throw err;
+
+    if (comments) {
+      comments = JSON.parse(comments);
+      console.log('Resonse coming from cache');
+      res.send(comments);
+    } else {
+      next();
+    }
+  })
+}
+
+app.get('/comments/:song_id', cache, (req, res) => {
   var song_id = req.params.song_id;
   if (song_id === undefined) {
     song_id = 1;
   }
-  // models.songs.hasMany(models.comments, {foreignKey: 'song_id'});
-  // models.comments.belongsTo(models.songs, {foreignKey: 'song_id'})
+  
+  
 
   models.songs.findAll({
     attributes: ['song_id'],
@@ -43,13 +61,16 @@ app.get('/comments/:song_id', (req, res) => {
       attributes: ['comment_id', 'song_id', 'user_id', 'user_icon', 'user_name', 'message', 'audio_position', 'posted_at'],
       required: true,
      }],
-  }).then((comments) => {
+  })
+  .then((comments) => {
+      var strungComments = JSON.stringify(comments);
+      redisClient.setex(song_id, 3600, strungComments);
       res.send(comments);
-    })
-    .catch((err) => {
+  })
+  .catch((err) => {
       res.status(404).send(err);
       console.log("Nope: ", err)
-    });
+  });
 });
 
 app.get('/createComment/:song_id', (req, res) => { //select max(id) from table
