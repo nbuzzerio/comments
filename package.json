@@ -6,12 +6,12 @@
   "scripts": {
     "test": "jest",
     "reactstart": "webpack-dev-server --mode development --open --hot",
-    "serverstart": "nodemon server/server.js",
+    "start": "nodemon server/server.js",
     "build": "webpack --mode production",
     "seedComments": "node database/seed.js",
     "seedSongs": "node database/seedSongs.js",
     "seedSongComments": "node database/seedSong_Comments.js",
-    "start": "webpack --watch"
+    "webpack": "webpack --watch"
   },
   "author": "David Orr, Nicholas Buzzerio",
   "license": "ISC",

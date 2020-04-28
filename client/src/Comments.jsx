@@ -2,13 +2,12 @@
 import React from 'react';
 import moment from 'moment';
 import axios from 'axios';
-const localUrl = 'http://localhost:8080';
-const prodUrl = 'http://ec2-34-220-99-82.us-west-2.compute.amazonaws.com:8080/';
-const API_URL = (window.location.host === 'localhost:8080') ? localUrl : prodUrl;
+const localUrl = 'http://localhost:3003';
+const prodUrl = 'http://ec2-54-197-26-174.compute-1.amazonaws.com:3003/';
+const API_URL = (window.location.host === 'localhost:3003' || window.location.host === 'localhost:3005') ? localUrl : prodUrl;
 console.log('this is localUrl: ', localUrl);
 console.log('this is prodUrl: ', prodUrl);
 console.log('API_URL: ', API_URL);
-console.log('...cheese');
 
 var convertTimestamp = function(timestamp) {
   if (timestamp > 60) {
@@ -83,11 +82,13 @@ class CommentModule extends React.Component {
 
   componentDidMount() {
       console.log(this.state.songId);
-      axios.get(API_URL + 'comment/' + this.state.songId)
+      console.log('URL used to get comments: ', API_URL + '/comment/' + this.state.songId);
+      axios.get(API_URL + '/comment/' + this.state.songId)
         .then((response) => {
           console.log('successfully recieved comments for song' , response);
+          console.log('data[0]: ', response.data[0].comments)
           this.setState({
-            comments : response.data,
+            comments : response.data[0].comments,
           });
         })
         .catch((error) => {

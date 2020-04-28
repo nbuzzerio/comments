@@ -8,10 +8,10 @@ const sequelize = require('sequelize');
 const dotenv = require('dotenv').config({
   path: path.join(__dirname, '../.env')
 });
-const redis = require('./redis.js').redis;
-const redisClient = require('./redis.js').client;
+// const redis = require('./redis.js').redis;
+// const redisClient = require('./redis.js').client;
 
-require('newrelic');
+// require('newrelic');
 
 const PORT = process.env.PORT || 3000;
 
@@ -30,28 +30,26 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //redis cache middleware
-function cache(req, res, next) {
-  const { song_id } = req.params;
-  redisClient.get(song_id, (err, comments) => {
-    if (err) throw err;
+// function cache(req, res, next) {
+//   const { song_id } = req.params;
+//   redisClient.get(song_id, (err, comments) => {
+//     if (err) throw err;
 
-    if (comments) {
-      comments = JSON.parse(comments);
-      console.log('Resonse coming from cache');
-      res.send(comments);
-    } else {
-      next();
-    }
-  })
-}
+//     if (comments) {
+//       comments = JSON.parse(comments);
+//       console.log('Resonse coming from cache');
+//       res.send(comments);
+//     } else {
+//       next();
+//     }
+//   })
+// }
 
-app.get('/comments/:song_id', cache, (req, res) => {
+app.get('/comment/:song_id', /*cache,*/ (req, res) => {
   var song_id = req.params.song_id;
   if (song_id === undefined) {
     song_id = 1;
   }
-  
-  
 
   models.songs.findAll({
     attributes: ['song_id'],
@@ -64,7 +62,7 @@ app.get('/comments/:song_id', cache, (req, res) => {
   })
   .then((comments) => {
       var strungComments = JSON.stringify(comments);
-      redisClient.setex(song_id, 3600, strungComments);
+      // redisClient.setex(song_id, 3600, strungComments); /////////////////////////////
       res.send(comments);
   })
   .catch((err) => {
@@ -143,6 +141,11 @@ app.get('/deleteComment/:song_id', (req, res) => {
       res.status(404).send('no comments found');
     });
 });
+
+//allow any other endpoints to bring us back to the homepage so you can ask for songs directly by number
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+})
 
 app.listen(PORT, () => {
   console.log(`Server running  on port ${PORT}.`);

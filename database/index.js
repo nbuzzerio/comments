@@ -5,7 +5,7 @@ require('dotenv').config({
 });
 
 const db = new Sequelize(process.env.pgDATABASE, process.env.pgUSER, process.env.pgPASS, {
-  host: process.env.HOST,
+  host: process.env.DB_HOST,
   dialect: 'postgres',
   schema: process.env.SEARCH_PATH,
 });
