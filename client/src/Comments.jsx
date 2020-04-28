@@ -3,7 +3,7 @@ import React from 'react';
 import moment from 'moment';
 import axios from 'axios';
 const localUrl = 'http://localhost:3003';
-const prodUrl = 'http://ec2-54-197-26-174.compute-1.amazonaws.com:3003/';
+const prodUrl = 'http://ec2-54-197-26-174.compute-1.amazonaws.com:3003';
 const API_URL = (window.location.host === 'localhost:3003' || window.location.host === 'localhost:3005') ? localUrl : prodUrl;
 console.log('this is localUrl: ', localUrl);
 console.log('this is prodUrl: ', prodUrl);
