@@ -146,6 +146,10 @@ app.get('/deleteComment/:song_id', (req, res) => {
 app.get('/loaderio-1689720865f5e724eaf91095012ed4f0/', (req, res) => {
   res.sendFile(path.join(__dirname, '../loaderio/loaderio-1689720865f5e724eaf91095012ed4f0.txt'))
 })
+//loaderio loadbalancer verification
+app.get('/loaderio-32b378e793d348e9d4994cbade0b6d96/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../loaderio/loaderio-32b378e793d348e9d4994cbade0b6d96.txt'))
+})
 
 //allow any other endpoints to bring us back to the homepage so you can ask for songs directly by number
 app.get('*', (req, res) => {
