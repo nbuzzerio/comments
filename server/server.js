@@ -1,17 +1,16 @@
 const path = require('path');
+const dotenv = require('dotenv').config({
+  path: path.join(__dirname, '../.env')
+});
+require('newrelic');
 const express = require('express');
 const db = require('../database/index.js');
 const models = require('../database/models.js');
 const cors = require('cors');
 const sequelize = require('sequelize');
-const dotenv = require('dotenv').config({
-  path: path.join(__dirname, '../.env')
-});
 
 // const redis = require('./redis.js').redis;
 // const redisClient = require('./redis.js').client;
-
-require('newrelic');
 
 const PORT = process.env.PORT || 3000;
 
