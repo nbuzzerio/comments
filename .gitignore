@@ -12,3 +12,4 @@ logs
 seedCassandraDriver.js
 index-mongo.js
 comments-mongo.js
+Postgres-Tables.txt
