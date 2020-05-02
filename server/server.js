@@ -9,8 +9,8 @@ const models = require('../database/models.js');
 const cors = require('cors');
 const sequelize = require('sequelize');
 
-// const redis = require('./redis.js').redis;
-// const redisClient = require('./redis.js').client;
+ const redis = require('./redis.js').redis;
+ const redisClient = require('./redis.js').client;
 
 const PORT = process.env.PORT || 3000;
 
@@ -29,22 +29,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //redis cache middleware
-// function cache(req, res, next) {
-//   const { song_id } = req.params;
-//   redisClient.get(song_id, (err, comments) => {
-//     if (err) throw err;
+ function cache(req, res, next) {
+   const { song_id } = req.params;
+   redisClient.get(song_id, (err, comments) => {
+     if (err) throw err;
 
-//     if (comments) {
-//       comments = JSON.parse(comments);
-//       console.log('Resonse coming from cache');
-//       res.send(comments);
-//     } else {
-//       next();
-//     }
-//   })
-// }
+     if (comments) {
+       comments = JSON.parse(comments);
+       
+       res.send(comments);
+     } else {
+       next();
+     }
+   })
+ }
 
-app.get('/comment/:song_id', /*cache,*/ (req, res) => {
+app.get('/comment/:song_id', cache, (req, res) => {
   var song_id = req.params.song_id;
   if (song_id === undefined) {
     song_id = 1;
@@ -61,7 +61,7 @@ app.get('/comment/:song_id', /*cache,*/ (req, res) => {
   })
   .then((comments) => {
       var strungComments = JSON.stringify(comments);
-      // redisClient.setex(song_id, 3600, strungComments); /////////////////////////////
+      redisClient.setex(song_id, 3600, strungComments); /////////////////////////////
       res.send(comments);
   })
   .catch((err) => {
