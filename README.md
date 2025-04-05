@@ -75,7 +75,7 @@ This project simulates a real-world service architecture and benchmarks the impa
 ```mermaid
 graph TD
     A[Client] -->|HTTP| B[CloudFront Proxy]
-    B --> C[Load Balancer (Nginx)]
+    B --> C[Load Balancer - Nginx]
     C --> D1[Service 1]
     C --> D2[Service 2]
     C --> D3[Service 3]
